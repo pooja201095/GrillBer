@@ -2,13 +2,18 @@ const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const schema = require('./schema/schema');
 const mongoose = require('mongoose');
+// const bodyParser = require('body-parser');
 const Grills = require('./models/grills');
+
 
 const app = express();
 
-mongoose.connect('mongodb+srv://pooja:pooja123@grills-kglex.mongodb.net/grill?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true  })
+mongoose.connect('mongodb+srv://pooja:pooja123@grills-kglex.mongodb.net/GrillBer?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true  })
 .then(() => console.log('Connected to database'))
 .catch((err) => console.log('Failed to connect database',err))
+
+// app.use(bodyParser.urlencoded({extended:true}));
+// app.use(bodyParser.json());
 
 // app.post('/grill', async (req, res) => {
 //     const grill = new Grills(req.body);
