@@ -10,16 +10,16 @@ mongoose.connect('mongodb+srv://pooja:pooja123@grills-kglex.mongodb.net/grill?re
 .then(() => console.log('Connected to database'))
 .catch((err) => console.log('Failed to connect database',err))
 
-app.post('/grill', async (req, res) => {
-    const grill = new Grills(req.body);
+// app.post('/grill', async (req, res) => {
+//     const grill = new Grills(req.body);
   
-    try {
-      await grill.save();
-      res.send(grill);
-    } catch (err) {
-      res.status(500).send(err);
-    }
-  });
+//     try {
+//       await grill.save();
+//       res.send(grill);
+//     } catch (err) {
+//       res.status(500).send(err);
+//     }
+//   });
 
 app.use('/graphql',graphqlHTTP({
     schema,
