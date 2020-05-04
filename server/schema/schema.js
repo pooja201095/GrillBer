@@ -15,7 +15,7 @@ const GrillType = new GraphQLObjectType({
         type: { type: GraphQLString },
         price: { type: GraphQLInt },
         reservation: {
-            type: ReservationType,
+            type: new GraphQLList(ReservationType),
             resolve(parent, args) {
                 return Reservation.find({ grillId: parent.id })
             }
@@ -29,6 +29,12 @@ const UserType = new GraphQLObjectType({
         id: { type: GraphQLID },
         uname: { type: GraphQLString },
         password: { type: GraphQLString },
+        reservation: {
+            type:new GraphQLList(ReservationType),
+            resolve(parent,args){
+                return Reservation.find({userId:parent.id})
+            }
+        }
     })
 });
 
@@ -36,7 +42,8 @@ const ReservationType = new GraphQLObjectType({
     name: 'Reservation',
     fields: () => ({
         id: { type: GraphQLID },
-        grillId: { type: GraphQLID },
+        userId: { type:GraphQLString },
+        grillId: { type: GraphQLString },
         fromDate: { type: GraphQLString },
         toDate: { type: GraphQLString },
         fromTime: { type: GraphQLString },
@@ -46,6 +53,12 @@ const ReservationType = new GraphQLObjectType({
             type: GrillType,
             resolve(parent, args) {
                 return Grills.findById(parent.grillId)
+            }
+        },
+        user:{
+            type:UserType,
+            resolve(parent,args){
+                return Users.findById(parent.userId)
             }
         }
     })
@@ -80,6 +93,19 @@ const RootQuery = new GraphQLObjectType({
                 return Reservation.find({});
             }
         },
+        user: {
+            type: UserType,
+            args: { id: { type: GraphQLID } },
+            resolve(parent, args) {
+                return Users.findById(args.id);
+            }
+        },
+        users: {
+            type: new GraphQLList(UserType),
+            resolve(parent, args) {
+                return Users.find({});
+            }
+        },
     }
 });
 
@@ -107,8 +133,8 @@ const Mutation = new GraphQLObjectType({
         addReservation: {
             type: ReservationType,
             args: {
-                userId: { type: GraphQLID },
-                grillId: { type: GraphQLID },
+                userId: { type: GraphQLString },
+                grillId: { type: GraphQLString },
                 fromDate: { type: GraphQLString },
                 toDate: { type: GraphQLString },
                 fromTime: { type: GraphQLString },
@@ -127,7 +153,21 @@ const Mutation = new GraphQLObjectType({
                 });
                 return reservation.save();
             }
-        }
+        },
+        addUser: {
+            type: UserType,
+            args: {
+                uname: { type: GraphQLString },
+                password: { type: GraphQLString },
+            },
+            resolve(parent, args) {
+                let user = new Users({
+                    uname: args.uname,
+                    password: args.password
+                });
+                return user.save();
+            }
+        },
     }
 });
 

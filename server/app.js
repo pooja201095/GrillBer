@@ -3,28 +3,18 @@ const graphqlHTTP = require('express-graphql');
 const schema = require('./schema/schema');
 const mongoose = require('mongoose');
 // const bodyParser = require('body-parser');
-const Grills = require('./models/grills');
+const Reservation = require('./models/reservations');
+const cors = require('cors');
 
 
 const app = express();
 
+//allow cross origin-requests
+app.use(cors());
+
 mongoose.connect('mongodb+srv://pooja:pooja123@grills-kglex.mongodb.net/GrillBer?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true  })
 .then(() => console.log('Connected to database'))
 .catch((err) => console.log('Failed to connect database',err))
-
-// app.use(bodyParser.urlencoded({extended:true}));
-// app.use(bodyParser.json());
-
-// app.post('/grill', async (req, res) => {
-//     const grill = new Grills(req.body);
-  
-//     try {
-//       await grill.save();
-//       res.send(grill);
-//     } catch (err) {
-//       res.status(500).send(err);
-//     }
-//   });
 
 app.use('/graphql',graphqlHTTP({
     schema,
