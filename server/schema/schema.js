@@ -27,8 +27,8 @@ const UserType = new GraphQLObjectType({
     name: 'User',
     fields: () => ({
         id: { type: GraphQLID },
-        uname: { type: GraphQLString },
-        password: { type: GraphQLString },
+        name: { type: GraphQLString },
+        email: { type: GraphQLString },
         reservation: {
             type:new GraphQLList(ReservationType),
             resolve(parent,args){
@@ -87,10 +87,31 @@ const RootQuery = new GraphQLObjectType({
                 return Reservation.findById(args.id)
             }
         },
+        reservationByUserID: {
+            type: new GraphQLList(ReservationType),
+            args: { userId: { type: GraphQLID } },
+            resolve(parent, args) {
+                return Reservation.find({userId:args.userId})
+            }
+        },
+        reservationByGrillID: {
+            type: new GraphQLList(ReservationType),
+            args: { grillId: { type: GraphQLID } },
+            resolve(parent, args) {
+                return Reservation.find({grillId:args.grillId})
+            }
+        },
         reservations: {
             type: new GraphQLList(ReservationType),
             resolve(parent, args) {
                 return Reservation.find({});
+            }
+        },
+        userByEmail:{
+            type: new GraphQLList(UserType),
+            args: { email: { type: GraphQLString } },
+            resolve(parent, args) {
+                return Users.find({email:args.email})
             }
         },
         user: {
@@ -157,13 +178,13 @@ const Mutation = new GraphQLObjectType({
         addUser: {
             type: UserType,
             args: {
-                uname: { type: GraphQLString },
-                password: { type: GraphQLString },
+                name: { type: GraphQLString },
+                email: { type: GraphQLString },
             },
             resolve(parent, args) {
                 let user = new Users({
-                    uname: args.uname,
-                    password: args.password
+                    name: args.name,
+                    email: args.email
                 });
                 return user.save();
             }

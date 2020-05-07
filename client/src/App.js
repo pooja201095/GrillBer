@@ -1,11 +1,13 @@
 import React from 'react';
 import { Route, BrowserRouter as Router } from 'react-router-dom'
 import AuthInterface from './Components/Auth/AuthInterface';
-import HomePage from './Components/HomePage';
+import HomePage from './Components/HomePage/HomePage';
 import NavBar from './Components/Navbar/Navbar';
 import StickyFooter from './Components/Navbar/Footer';
 import { makeStyles } from '@material-ui/core/styles';
 import PDP from './Components/PDP/PDP';
+import Profile from './Components/Profile/profile';
+import OrderList from './Components/Orders/orders';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,7 +26,9 @@ function App() {
       <Route path="/" exact component={HomePage}/>
       <Route path="/signin" render={(props)=><AuthInterface {...props} mode="signin"/>} />
       <Route path="/signup" render={(props)=><AuthInterface {...props} mode="signup"/>} />
-      <Route path="/bbq" exact render={(props)=><PDP {...props}/>}/>
+      <Route path="/bbq/:grillId" exact render={(props)=><PDP {...props}/>}/>
+      <Route path="/profile" exact component={Profile}/>
+      <Route path="/orders" exact component={OrderList}/>
       <StickyFooter/>
   </Router>
     </div>

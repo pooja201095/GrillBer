@@ -10,6 +10,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Backgroundimg from '../../assets/grill.jpg';
 import {Link} from 'react-router-dom';
+import {addUser} from '../Queries/queries';
+import { useMutation } from '@apollo/react-hooks';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Signup(props) {
   const classes = useStyles();
+  const [addUserToMongo] = useMutation(addUser);
 
   const initialFormData = Object.freeze({
     fullName:"",
@@ -68,7 +71,8 @@ export default function Signup(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(props);
+    console.log(formData.fullName,formData.email);
+    addUserToMongo({variables: { name: formData.fullName,email:formData.email } });
     props.handleSignUp(formData);
   };
 
@@ -90,6 +94,7 @@ export default function Signup(props) {
             <Grid item xs={12}>
               <label>Full Name</label>
               <TextField
+              type="text"
                 autoComplete="fname"
                 name="fullName"
                 variant="outlined"
@@ -103,6 +108,7 @@ export default function Signup(props) {
             <Grid item xs={12}>
             <label>Email Address</label>
               <TextField
+              type="email"
                 variant="outlined"
                 required
                 fullWidth
@@ -115,6 +121,7 @@ export default function Signup(props) {
             <Grid item xs={12}>
             <label>Password</label>
               <TextField
+              type="password"
                 variant="outlined"
                 required
                 fullWidth

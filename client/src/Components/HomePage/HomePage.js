@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import Grid from '@material-ui/core/Grid';
-import Backgroundimg from '../assets/grill.jpg';
+import Backgroundimg from '../../assets/grill.jpg';
 import Divider from '@material-ui/core/Divider';
 import GrillList from './GrillList';
 
@@ -44,14 +44,12 @@ export default function SimpleContainer() {
       <Grid component="main" className={classes.image} >
         <CssBaseline />
         <Paper className={classes.paper}>
-          <Typography>
             <h2>Throwing the best BBQ on the block has just become easier!</h2>
                 <CheckCircleIcon fontSize='large' style={{ color: 'green' }} />
                 <p className={classes.p}>Convinient</p>
                 <p className={classes.p}>Affordable</p>
                 <p className={classes.p}>Great Quality</p>
             <h1>You Ask!! We Deliver!!</h1>
-          </Typography>
         </Paper>
       </Grid>
       <Divider variant="middle" />

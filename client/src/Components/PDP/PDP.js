@@ -43,7 +43,10 @@ const styles = {
 
 class PDP extends Component {
   render() {
-    const {auth,location} = this.props;
+    const {auth} = this.props;
+    const grills = localStorage.getItem('Grills');
+    console.log(JSON.parse(grills).filter((grill)=>grill.id === this.props.match.params.grillId));
+    const currentGrill = JSON.parse(grills).filter((grill)=>grill.id === this.props.match.params.grillId);
     const grillImg =
       "https://cdn.shopify.com/s/files/1/1205/3574/products/gas-bbq-grill-rentuu-1479788757021_320x.jpg?v=1534508821";
 
@@ -66,7 +69,7 @@ class PDP extends Component {
             {/* <Paper elevation={3}> */}
             <div style={styles.details}>
               <Typography gutterBottom variant="h5" component="h2">
-                {location.pdpProps.grill.name}
+                {currentGrill[0].name}
               </Typography>
               <Typography variant="body2" color="textPrimary" component="p">
                 <img
@@ -95,7 +98,7 @@ class PDP extends Component {
                 color="textPrimary"
                 className="right"
               >
-                 {location.pdpProps.grill.price}
+                 {currentGrill[0].price}
               </Typography>
               <RentForm />
               <div style={{ textAlign: "center", marginTop: "10px" }}>
@@ -111,9 +114,11 @@ class PDP extends Component {
     );
   }
 }
+
 const mapStateToProps = (state) =>{
   return {
-     auth:state.firebase.auth
+     auth:state.firebase.auth,
+    //  data:state.grill.data
   }
 }
 

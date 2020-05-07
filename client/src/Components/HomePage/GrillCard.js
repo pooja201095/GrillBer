@@ -46,10 +46,7 @@ export default function MediaCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-          <Link to={{
-  pathname: '/bbq',
-  pdpProps: {...props}
-}} className={classes.link}>
+          <Link  to={`/bbq/${grill.id}`} className={classes.link}>
             <Button size="small" color="primary">
             Rent it
             </Button>

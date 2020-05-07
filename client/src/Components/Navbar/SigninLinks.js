@@ -8,6 +8,7 @@ import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { makeStyles } from '@material-ui/core/styles';
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -16,6 +17,10 @@ const useStyles = makeStyles((theme) => ({
     paper: {
       marginRight: theme.spacing(2),
     },
+    link:{
+      textDecoration:'none',
+      color:'black'
+    }
   }));
 
 export default function SigninLinks(props) {
@@ -58,8 +63,12 @@ export default function SigninLinks(props) {
               <Paper className={classes.paper}>
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                    <Link to="/profile" className={classes.link}>
                     <MenuItem onClick={handleClose}>Profile</MenuItem>
+                    </Link>
+                    <Link to="/orders" className={classes.link}>
                     <MenuItem onClick={handleClose}>My Orders</MenuItem>
+                    </Link>
                     <MenuItem onClick={handleClose} onClick={props.signOut}>Logout</MenuItem>
                   </MenuList>
                 </ClickAwayListener>

@@ -1,6 +1,3 @@
-// var clientID = 523632946290-e9j1mocl2917ott3ce06jbt5bk1o2ion.apps.googleusercontent.com;
-// var clientSecret = KqHp3t5jFxod5yhLhv9xCWeV;
-
 import firebase from 'firebase/app'
 // import 'firebase/firestore'
 import 'firebase/auth'

@@ -30,7 +30,7 @@ const store = createStore(rootReducer,
 
       function AuthIsLoaded({ children }) {
         const auth = useSelector(state => state.firebase.auth)
-        if (!isLoaded(auth)) return <div>Loading Screen...</div>;
+        if (!isLoaded(auth)) return <div></div>;
             return children
     }
       

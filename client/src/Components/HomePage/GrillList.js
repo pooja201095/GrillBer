@@ -1,10 +1,10 @@
 import React from 'react';
-import {gql} from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
 import GrillCard from './GrillCard';
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from '@material-ui/core/styles';
-import { CircularProgress } from '@material-ui/core';
+import { CircularProgress } from '@material-ui/core/';
+import {getGrillQuery} from '../Queries/queries';
 
 // import {graphql} from 'react-apollo';
 
@@ -18,32 +18,25 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
-const getGrillQuery = gql`
-{
-  grills{
-    name,
-    description,
-    price,
-    id
-  }
-}
-`;
 
-
-export default function GrillList() {
+function GrillList(props) {
     const classes = useStyles();
     const {loading,error,data} = useQuery(getGrillQuery);
     const displayGrills = () => {
         if(loading){
-            return (<CircularProgress/>)
+            return (<CircularProgress/>);
+        }else if(error !== undefined){
+          return (<h1 className={classes.centerGrid}>
+            ERROR
+          </h1>);
         } else {
-            console.log(data.grills);
+          localStorage.setItem('Grills',JSON.stringify(data.grills));
             return data.grills.map(grill=>{
                 return(<Grid key={grill.id} item xs={3}>
                     <GrillCard grill={grill}></GrillCard>
                 </Grid>
                 )
-            })
+            });
         }
     }
             return (
@@ -54,3 +47,13 @@ export default function GrillList() {
               </div>
             );
 }
+
+
+
+// const mapDispatchToProps = (dispatch) =>{
+//   return {
+//       grillData: (data,error) => dispatch(grillData(data,error))
+//   }
+// }
+
+export default GrillList;
