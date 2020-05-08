@@ -13,14 +13,10 @@ class AuthInterface extends Component {
   }
 
   handleLogin = (formData) => {
-    // console.log("in interface");
-    // console.log(formData);
     this.props.signIn(formData);
   };
 
   handleSignUp = (formData) => {
-    // console.log("in interface");
-    // console.log(formData);
     this.props.signUp(formData);
   };
 
@@ -36,7 +32,6 @@ class AuthInterface extends Component {
   }
 }
 const mapStateToProps = (state) =>{
-    console.log(state);
     return {
         ...state,
         authError: state.auth.authError

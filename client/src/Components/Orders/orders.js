@@ -4,59 +4,72 @@ import OrderCard from './orderCard';
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from '@material-ui/core/styles';
 import { CircularProgress } from '@material-ui/core/';
-import {getOrders} from '../Queries/queries';
+import { getOrders } from '../Queries/queries';
+import { connect } from "react-redux";
+import { Redirect } from 'react-router-dom';
 
 // import {graphql} from 'react-apollo';
 
 const useStyles = makeStyles(theme => ({
-    root: {
+  root: {
     overflow: 'hidden',
     padding: theme.spacing(0, 3),
-      flexGrow: 1,
-      margin:'20px 40px'
-    },
-    centerGrid: {
-        justifyContent:'center'
-    },
-    paper: {
-        maxWidth: 800,
-        margin: `0px auto`,
-      },
-  }));
+    flexGrow: 1,
+    margin: '20px 40px'
+  },
+  centerGrid: {
+    justifyContent: 'center'
+  },
+  paper: {
+    maxWidth: 800,
+    margin: `0px auto`,
+  },
+}));
 
 
-function OrderList() {
-    const classes = useStyles();
-    const userId= "5eacfbe59ea9fddd9dcd546f";
-    const {loading,error,data} = useQuery(getOrders,{
-      variables: { userId },
-    });
-    console.log("orders",loading,error,data);
+function OrderList(props) {
+  const classes = useStyles();
+  const { auth } = props;
+  const loggedin = auth.uid;
 
-    const displayOrders = () => {
-      if(loading){
-        return (<CircularProgress/>);
-    }else if(error !== undefined){
+  //replace with uid once reservation done
+  const userId = "5eacfbe59ea9fddd9dcd546f";
+  const { loading, error, data } = useQuery(getOrders, {
+    variables: { userId },
+  });
+
+  const displayOrders = () => {
+    if (loading) {
+      return (<CircularProgress />);
+    } else if (error !== undefined) {
       return (<h1 className={classes.centerGrid}>
         ERROR
       </h1>);
     } else {
-      localStorage.setItem('Grills',JSON.stringify(data.reservationByUserID));
-        return data.reservationByUserID.map(order=>{
-            return(<Grid key={order.id} className={classes.paper} container wrap="nowrap" spacing={2}>
-            <Grid item xs zeroMinWidth>
+      localStorage.setItem('Grills', JSON.stringify(data.reservationByUserID));
+      return data.reservationByUserID.map(order => {
+        return (<Grid key={order.id} className={classes.paper} container wrap="nowrap" spacing={2}>
+          <Grid item xs zeroMinWidth>
             <OrderCard order={order}></OrderCard>
-            </Grid>
           </Grid>
-            )
-        });
+        </Grid>
+        )
+      });
     }
-    }
-            return (
-              <div className={classes.root}>
-                  {displayOrders()}
-              </div>
-            );
+  }
+  return (
+  loggedin ?
+    <div className={classes.root}>
+      {displayOrders()}
+    </div>
+    : <Redirect to="/" />
+    );
 }
 
-export default OrderList;
+const mapStateToProps = (state) => {
+  return {
+    auth: state.firebase.auth,
+  }
+}
+
+export default connect(mapStateToProps)(OrderList);

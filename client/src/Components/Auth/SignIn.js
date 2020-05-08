@@ -42,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  error:{
+    color:'red'
+  }
 }));
 
 export default function Signin(props) {
@@ -56,7 +59,6 @@ export default function Signin(props) {
   const {authError} = props;
 
   const handleChange = (e) => {
-    console.log(formData,e);
     updateFormData({
       ...formData,
       [e.target.id]: e.target.value,
@@ -65,7 +67,6 @@ export default function Signin(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(props);
     props.handleLogin(formData);
   };
 
@@ -119,7 +120,6 @@ export default function Signin(props) {
             >
               Sign In
             </Button>
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
             <Grid container>
               <Grid item>
                 <Link to="/signup" variant="body2">
@@ -128,7 +128,7 @@ export default function Signin(props) {
               </Grid>
             </Grid>
             <Grid container>
-              <div>
+              <div className={classes.error}>
                 {authError ? <p>{authError}</p> : null}
               </div>
             </Grid>

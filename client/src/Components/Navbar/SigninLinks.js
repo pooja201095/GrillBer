@@ -69,7 +69,7 @@ export default function SigninLinks(props) {
                     <Link to="/orders" className={classes.link}>
                     <MenuItem onClick={handleClose}>My Orders</MenuItem>
                     </Link>
-                    <MenuItem onClick={handleClose} onClick={props.signOut}>Logout</MenuItem>
+                    <MenuItem onClick={(e)=>{props.signOut();handleClose(e)}}>Logout</MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>

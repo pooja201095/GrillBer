@@ -11,6 +11,8 @@ import Divider from '@material-ui/core/Divider';
 import { connect } from "react-redux";
 import { useQuery } from '@apollo/react-hooks';
 import { getProfileInfo } from '../Queries/queries';
+import { CircularProgress } from '@material-ui/core/';
+import {Redirect} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,12 +53,21 @@ const useStyles = makeStyles((theme) => ({
 function Profile(props) {
   const classes = useStyles();
   const {auth} = props;
-  const currentUserEmail = "pooja@grillber.com";
+  const loggedin = auth.uid;
+  console.log('logged in ',loggedin);
+  const email = auth.email;
   const {loading,error,data} = useQuery(getProfileInfo,{
-    variables: { currentUserEmail },
+    variables: { email },
   });
-  console.log(loading,error,data);
-
+  if(loggedin){
+  if(loading){
+    return (<CircularProgress/>);
+}else if(error !== undefined){
+  return (<h1 className={classes.centerGrid}>
+    ERROR
+  </h1>);
+} else {
+  const user= data.userByEmail[0];
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -68,23 +79,23 @@ function Profile(props) {
           </Typography>
           <form className={classes.form} noValidate>
           <Typography className={classes.field}>
-            Name: 
+            Name: {user.name}
           </Typography>
           <Divider></Divider>
           <Typography className={classes.field}>
-            Contact Number:
+            Contact Number: 0987654321
           </Typography>
           <Divider></Divider>
           <Typography className={classes.field}>
-            Gender:
+            Gender: Female
           </Typography>
           <Divider></Divider>
           <Typography className={classes.field}>
-            Email
+            Email:  {user.email}
           </Typography>
           <Divider></Divider>
           <Typography className={classes.field}>
-            Saved Address:
+            Saved Address: Dummy Address Data
           </Typography>
             <Button
               type="submit"
@@ -101,8 +112,12 @@ function Profile(props) {
     </Grid>
   );
 }
+  } else {
+    return <Redirect to='/'/> 
+  }
+}
+
 const mapStateToProps = (state) =>{
-  console.log(state);
   return {
      auth:state.firebase.auth,
   }

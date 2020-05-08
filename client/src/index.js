@@ -44,9 +44,7 @@ const store = createStore(rootReducer,
                 attachAuthIsReady={true}
               >
                 <AuthIsLoaded>
-                <React.StrictMode>
                   <App />
-                </React.StrictMode>
                 </AuthIsLoaded>
               </ReactReduxFirebaseProvider>
             </Provider>

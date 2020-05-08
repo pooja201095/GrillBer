@@ -121,7 +121,6 @@ export default function Signup(props) {
             <Grid item xs={12}>
             <label>Password</label>
               <TextField
-              type="password"
                 variant="outlined"
                 required
                 fullWidth
