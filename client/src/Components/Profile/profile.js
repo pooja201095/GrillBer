@@ -54,7 +54,6 @@ function Profile(props) {
   const classes = useStyles();
   const {auth} = props;
   const loggedin = auth.uid;
-  console.log('logged in ',loggedin);
   const email = auth.email;
   const {loading,error,data} = useQuery(getProfileInfo,{
     variables: { email },

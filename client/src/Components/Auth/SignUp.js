@@ -66,12 +66,10 @@ export default function Signup(props) {
       ...formData,
       [e.target.id]: e.target.value,
     });
-    console.log(formData);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData.fullName,formData.email);
     addUserToMongo({variables: { name: formData.fullName,email:formData.email } });
     props.handleSignUp(formData);
   };

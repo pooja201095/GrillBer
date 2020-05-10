@@ -5,10 +5,15 @@ import React from 'react';
 
 const useStyles = makeStyles((theme) => ({
     btn: {
-        backgroundColor:'white',
-        margin:'5px'
+        backgroundColor:'burlywood',
+        margin:'5px',
+        "&:hover": {
+            backgroundColor: "brown",
+            color: "white",
+          },
     },
     link:{
+        color:'black',
         textDecoration: 'none'
     }
   }));

@@ -8,11 +8,15 @@ import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { makeStyles } from '@material-ui/core/styles';
+// import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     root: {
       display: 'flex',
+    },
+    btn:{
+      color:'burlywood'
     },
     paper: {
       marginRight: theme.spacing(2),
@@ -23,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 
-export default function SigninLinks(props) {
+function SigninLinks(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const anchorRef = React.useRef(null);
@@ -52,7 +56,7 @@ export default function SigninLinks(props) {
           aria-controls={open ? 'menu-list-grow' : undefined}
           aria-haspopup="true"
           onClick={handleToggle}>
-         <AccountCircleIcon fontSize="large"/>
+         <AccountCircleIcon className={classes.btn} fontSize="large"/>
           </IconButton>
         <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
           {({ TransitionProps, placement }) => (
@@ -79,3 +83,5 @@ export default function SigninLinks(props) {
         </div>
     );
 }
+
+export default SigninLinks;

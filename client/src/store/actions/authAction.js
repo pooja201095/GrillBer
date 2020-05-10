@@ -8,7 +8,6 @@ import {
 
 export const signIn = (credentials) => {
     return (dispatch, getState,  getFirebase ) => {
-        console.log(credentials);
         const firebase = getFirebase();
 
         firebase.auth().signInWithEmailAndPassword(
@@ -23,9 +22,9 @@ export const signIn = (credentials) => {
 }
 
 export const signOut = () =>{
+    localStorage.removeItem('itemsInCart');
     return (dispatch, getState, getFirebase) =>{
         const firebase = getFirebase();
-        console.log(' signout action');
         firebase.auth().signOut().then(()=>{
             dispatch({type:  SIGNOUT_SUCCESS});
         })
@@ -34,7 +33,6 @@ export const signOut = () =>{
 
 export const signUp = (newUser) => {
     return (dispatch, getState,  getFirebase ) => {
-        console.log(newUser);
         const firebase = getFirebase();
 
         firebase.auth().createUserWithEmailAndPassword(

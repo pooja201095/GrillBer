@@ -11,6 +11,26 @@ const getGrillQuery = gql`
 }
 `;
 
+const addReservation = gql`
+mutation( $userId: String!,
+  $grillId: String!,
+  $fromDate: String!,
+  $toDate: String!,
+  $fromTime: String!,
+  $toTime: String!,
+  $totalAmount: String!) {
+  addReservation(userId:$userId,
+    grillId:$grillId,
+    fromDate:$fromDate,
+    toDate:$toDate,
+    fromTime:$fromTime,
+    toTime:$toTime,
+    totalAmount:$totalAmount){
+    id
+    }
+  }
+`;
+
 const addUser = gql`
 mutation($name: String!, $email: String!) {
     addUser(name: $name,email: $email){
@@ -63,4 +83,4 @@ const getReservationsQuery = gql`
 }
 `;
 
-export {getGrillQuery,addUser,getReservationsQuery,getOrders,getProfileInfo};
+export {getGrillQuery,addUser,getReservationsQuery,getOrders,getProfileInfo,addReservation};

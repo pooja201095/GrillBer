@@ -16,22 +16,27 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
+  appbar: {
+    backgroundColor: "black",
+  },
   menuButton: {
+    color:'burlywood',
     marginRight: theme.spacing(2),
   },
   title: {
     flexGrow: 1,
-    verticalAlign:'center'
   },
   btn: {
-    color:'white',
-    fontSize:'20px',
+    textTransform:'none',
+    padding:'0px',
+    fontSize:'30px',
     fontWeight:'600',
-    backgroundColor:'transparent',
-    margin:'5px'
+    color: "burlywood",
+    fontFamily: "'Lobster', cursive",
+    backgroundColor:'transparent'
 },
 link:{
-    textDecoration: 'none'
+    textDecoration: 'none',
 }
 }));
 
@@ -45,9 +50,9 @@ function NavBar(props) {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="sticky" color="transparent" className={classes.appbar}>
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+          <IconButton edge="start" className={classes.menuButton} aria-label="menu">
          <OutdoorGrillIcon fontSize="large"/>
           </IconButton>
           <Typography variant="h6" className={classes.title}>

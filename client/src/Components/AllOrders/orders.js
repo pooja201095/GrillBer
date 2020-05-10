@@ -33,7 +33,7 @@ function OrderList(props) {
   const loggedin = auth.uid;
 
   //replace with uid once reservation done
-  const userId = "5eacfbe59ea9fddd9dcd546f";
+  const userId = auth.uid;
   const { loading, error, data } = useQuery(getOrders, {
     variables: { userId },
   });
@@ -46,7 +46,6 @@ function OrderList(props) {
         ERROR
       </h1>);
     } else {
-      localStorage.setItem('Grills', JSON.stringify(data.reservationByUserID));
       return data.reservationByUserID.map(order => {
         return (<Grid key={order.id} className={classes.paper} container wrap="nowrap" spacing={2}>
           <Grid item xs zeroMinWidth>

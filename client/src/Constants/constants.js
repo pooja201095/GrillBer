@@ -6,3 +6,8 @@ export const SIGNOUT_SUCCESS = "SIGNOUT_SUCCESS";
 
 export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
 export const SIGNUP_FAILED = "SIGNUP_FAILED";
+
+export const ADD_TO_CART = "ADD_TO_CART"
+export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
+export const GET_CART_ITEMS = "GET_CART_ITEMS";
+export const IS_ITEM_IN_CART = "IS_ITEM_IN_CART";

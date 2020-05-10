@@ -2,8 +2,6 @@ const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const schema = require('./schema/schema');
 const mongoose = require('mongoose');
-// const bodyParser = require('body-parser');
-const Reservation = require('./models/reservations');
 const cors = require('cors');
 
 

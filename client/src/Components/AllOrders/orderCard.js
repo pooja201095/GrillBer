@@ -29,7 +29,7 @@ export default function OrderCard(props) {
     <Card className={classes.root}>
       <CardContent>
         <Typography className={classes.title} color="textSecondary" gutterBottom>
-          Item Id: {order.id}
+          Order Id: {order.id}
         </Typography>
         <Typography variant="h5" component="h2">
          Product: {order.name}
